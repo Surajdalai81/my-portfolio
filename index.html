@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suraj Dalai - Software Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0a192f; /* Navy */
+            --primary-color: #64ffda; /* Mint Green */
+            --secondary-color: #112240; /* Lighter Navy */
+            --text-light: #ccd6f6; /* Light Slate */
+            --text-dark: #8892b0; /* Slate */
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-light);
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            z-index: -1;
+        }
+        .section {
+            padding: 4rem 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #hero {
+            min-height: 100vh;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .typing-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 1em;
+            background-color: var(--primary-color);
+            animation: blink 1s infinite;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        .skill-card, .project-card, .journey-card {
+            background-color: var(--secondary-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .skill-card:hover, .project-card:hover, .journey-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px -15px rgba(2, 12, 27, 0.7);
+        }
+        .tooltip {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--primary-color);
+            color: var(--bg-color);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s, visibility 0.2s;
+            margin-left: 12px;
+        }
+        .has-tooltip:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <div id="particles-js"></div>
+
+    <!-- Sidebar Navigation for Desktop -->
+    <aside class="fixed top-0 left-0 h-full w-20 bg-gray-900/50 backdrop-blur-lg border-r border-gray-800 z-40 hidden lg:flex flex-col items-center justify-between py-8">
+        <a href="#hero" class="text-3xl font-bold text-cyan-400">S.D</a>
+        <nav>
+            <ul class="space-y-8">
+                <li class="has-tooltip relative"><a href="#about" class="text-2xl text-gray-400 hover:text-cyan-400"><i class="fas fa-user"></i><span class="tooltip">About</span></a></li>
+                <li class="has-tooltip relative"><a href="#journey" class="text-2xl text-gray-400 hover:text-cyan-400"><i class="fas fa-route"></i><span class="tooltip">Journey</span></a></li>
+                <li class="has-tooltip relative"><a href="#skills" class="text-2xl text-gray-400 hover:text-cyan-400"><i class="fas fa-cogs"></i><span class="tooltip">Skills</span></a></li>
+                <li class="has-tooltip relative"><a href="#projects" class="text-2xl text-gray-400 hover:text-cyan-400"><i class="fas fa-project-diagram"></i><span class="tooltip">Projects</span></a></li>
+                <li class="has-tooltip relative"><a href="#contact" class="text-2xl text-gray-400 hover:text-cyan-400"><i class="fas fa-envelope"></i><span class="tooltip">Contact</span></a></li>
+            </ul>
+        </nav>
+        <div></div>
+    </aside>
+    
+    <!-- Mobile Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-lg lg:hidden">
+         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-2xl font-bold text-cyan-400">S.D.</a>
+            <button id="mobile-menu-button" class="text-2xl z-50 text-white">
+                <i id="menu-icon" class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+    <!-- Mobile Menu Overlay-->
+    <div id="mobile-menu" class="fixed inset-0 bg-gray-900 z-40 hidden flex-col items-center justify-center space-y-8 text-2xl lg:hidden">
+        <a href="#about" class="mobile-link">About</a>
+        <a href="#journey" class="mobile-link">Journey</a>
+        <a href="#skills" class="mobile-link">Skills</a>
+        <a href="#projects" class="mobile-link">Projects</a>
+        <a href="#contact" class="mobile-link">Contact</a>
+    </div>
+
+
+    <div class="lg:ml-20">
+        <main class="container mx-auto px-6 md:px-16">
+            <!-- Hero Section -->
+            <section id="hero" class="section">
+                <div class="max-w-4xl">
+                    <p class="text-lg text-cyan-400 mb-4 fade-in" style="transition-delay: 100ms;">Hi, my name is</p>
+                    <h1 class="text-4xl md:text-7xl font-bold text-gray-100 fade-in" style="transition-delay: 200ms;">Suraj Dalai.</h1>
+                    <h2 class="text-3xl md:text-5xl font-bold text-gray-400 mt-2 fade-in" style="transition-delay: 300ms;">
+                        <span id="typing-text"></span><span class="typing-cursor"></span>
+                    </h2>
+                    <p class="mt-6 max-w-xl text-lg text-gray-400 fade-in" style="transition-delay: 400ms;">
+                        I'm a computer science graduate passionate about building software and exploring new technologies.
+                    </p>
+                    <div class="mt-8 flex items-center space-x-6 fade-in" style="transition-delay: 500ms;">
+                        <a href="https://github.com/surajdalai" target="_blank" class="text-3xl text-gray-400 hover:text-cyan-400 transition-colors"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/suraj-dalai-43b8b6240" target="_blank" class="text-3xl text-gray-400 hover:text-cyan-400 transition-colors"><i class="fab fa-linkedin"></i></a>
+                        <a href="mailto:surajdalai81@gmail.com" class="text-3xl text-gray-400 hover:text-cyan-400 transition-colors"><i class="fas fa-envelope"></i></a>
+                    </div>
+                    <div class="mt-8 fade-in" style="transition-delay: 600ms;">
+                        <a href="#projects" class="bg-cyan-500 text-white font-semibold px-8 py-4 rounded-md hover:bg-cyan-600 transition-all">
+                            Check out my work!
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section id="about" class="section">
+                <div class="fade-in">
+                    <h2 class="text-3xl font-bold text-gray-100 mb-12 relative">
+                        <span class="text-cyan-400">01.</span> About Me
+                    </h2>
+                    <div class="text-lg text-gray-400 space-y-4 max-w-4xl mx-auto">
+                        <p>Hello! I'm Suraj, a self-motivated and detail-oriented Computer Science graduate aspiring to become a Software Developer.</p>
+                        <p>My journey into technology is driven by a passion for problem-solving and a desire to create meaningful applications. I am eager to apply my knowledge in Java, web technologies, and databases to real-world software development and continuously enhance my technical skills.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Journey Section -->
+            <section id="journey" class="section">
+                <div class="fade-in">
+                    <h2 class="text-3xl font-bold text-gray-100 mb-12 relative text-center">
+                        <span class="text-cyan-400">02.</span> My Journey
+                    </h2>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                        <!-- Left Column: Experience & Education -->
+                        <div>
+                            <!-- Work Experience -->
+                            <div class="mb-16">
+                                <h3 class="text-2xl font-semibold text-slate-200 mb-8 flex items-center gap-4"><i class="fas fa-briefcase text-cyan-400"></i> Work Experience</h3>
+                                <div class="border-l-2 border-gray-700 pl-8 space-y-12 relative">
+                                    <div class="relative"><div class="absolute -left-[42px] top-1 h-4 w-4 rounded-full bg-cyan-400 border-4 border-gray-900"></div><p class="text-sm text-cyan-400">Present</p><h4 class="text-xl font-bold text-slate-200 mt-1">Software Engineer Trainee</h4><p class="text-md text-slate-400 font-semibold">Otech Soft Solution Pvt. Ltd.</p><p class="text-slate-400 mt-2">Working on full-stack development using HTML, CSS, JavaScript, and SQL. Also creating and managing email marketing campaigns using Salesforce Marketing Cloud.</p></div>
+                                </div>
+                            </div>
+                            <!-- Education -->
+                            <div>
+                                <h3 class="text-2xl font-semibold text-slate-200 mb-8 flex items-center gap-4"><i class="fas fa-graduation-cap text-cyan-400"></i> Education</h3>
+                                <div class="border-l-2 border-gray-700 pl-8 space-y-12 relative">
+                                    <div class="relative"><div class="absolute -left-[42px] top-1 h-4 w-4 rounded-full bg-cyan-400 border-4 border-gray-900"></div><p class="text-sm text-cyan-400">2021 - 2025</p><h4 class="text-xl font-bold text-slate-200 mt-1">B.Tech in Computer Science</h4><p class="text-md text-slate-400 font-semibold">Gandhi Institute for Technology (GIFT)</p><p class="text-slate-400 mt-2">CGPA: 7.50/10</p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Right Column: Certifications -->
+                        <div>
+                             <div class="mb-16">
+                                <h3 class="text-2xl font-semibold text-slate-200 mb-8 flex items-center gap-4"><i class="fas fa-certificate text-cyan-400"></i> Certifications</h3>
+                                <div class="border-l-2 border-gray-700 pl-8 space-y-12 relative">
+                                    <div class="relative"><div class="absolute -left-[42px] top-1 h-4 w-4 rounded-full bg-cyan-400 border-4 border-gray-900"></div><h4 class="text-xl font-bold text-slate-200">Java Programming</h4><p class="text-md text-slate-400 font-semibold">IIG VARSITY</p></div>
+                                    <div class="relative"><div class="absolute -left-[42px] top-1 h-4 w-4 rounded-full bg-cyan-400 border-4 border-gray-900"></div><h4 class="text-xl font-bold text-slate-200">Front-End Development</h4><p class="text-md text-slate-400 font-semibold">Glucian India Pvt. Ltd.</p></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills" class="section">
+                <div class="fade-in">
+                    <h2 class="text-3xl font-bold text-gray-100 mb-12 relative text-center">
+                        <span class="text-cyan-400">03.</span> Skills & Technologies
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="skill-card p-6 rounded-lg">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-4">Languages</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-800/50 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">Java</span>
+                                <span class="bg-gray-800/50 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">JavaScript</span>
+                                <span class="bg-gray-800/50 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">SQL</span>
+                            </div>
+                        </div>
+                        <div class="skill-card p-6 rounded-lg">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-4">Web Technologies</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-800/50 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">HTML</span>
+                                <span class="bg-gray-800/50 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">CSS</span>
+                            </div>
+                        </div>
+                        <div class="skill-card p-6 rounded-lg">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-4">Database</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-800/50 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">MySQL</span>
+                            </div>
+                        </div>
+                        <div class="skill-card p-6 rounded-lg">
+                            <h3 class="text-xl font-bold text-cyan-400 mb-4">Tools & Platforms</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-800/50 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">Git</span>
+                                <span class="bg-gray-800/50 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">GitHub</span>
+                                <span class="bg-gray-800/50 text-slate-300 text-sm font-medium px-3 py-1 rounded-full">VS Code</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Projects Section -->
+            <section id="projects" class="section">
+                 <div class="fade-in">
+                    <h2 class="text-3xl font-bold text-gray-100 mb-12 relative text-center">
+                        <span class="text-cyan-400">04.</span> My Projects
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Project Card 1 -->
+                        <div class="project-card rounded-lg overflow-hidden flex flex-col">
+                            <div class="p-6 flex-grow"><div class="flex justify-between items-center mb-4"><i class="far fa-folder text-4xl text-cyan-400"></i><a href="https://github.com/surajdalai" target="_blank" class="text-xl text-gray-400 hover:text-cyan-400"><i class="fab fa-github"></i></a></div><h3 class="text-xl font-bold text-gray-100 mb-2 hover:text-cyan-400"><a href="https://github.com/surajdalai" target="_blank">Stock Accounting System</a></h3><p class="text-gray-400 text-sm">A desktop-based inventory management system with modules for stock entry, item updates, purchase/sales tracking, and report generation.</p></div>
+                            <div class="p-6 pt-0 flex flex-wrap gap-2 text-xs text-gray-400"><span class="bg-gray-800/50 px-2 py-1 rounded">Java</span><span class="bg-gray-800/50 px-2 py-1 rounded">AWT</span><span class="bg-gray-800/50 px-2 py-1 rounded">MySQL</span></div>
+                        </div>
+                        <!-- Project Card 2 -->
+                        <div class="project-card rounded-lg overflow-hidden flex flex-col">
+                            <div class="p-6 flex-grow"><div class="flex justify-between items-center mb-4"><i class="far fa-folder text-4xl text-cyan-400"></i><a href="https://github.com/surajdalai" target="_blank" class="text-xl text-gray-400 hover:text-cyan-400"><i class="fab fa-github"></i></a></div><h3 class="text-xl font-bold text-gray-100 mb-2 hover:text-cyan-400"><a href="https://github.com/surajdalai" target="_blank">Registration Form & Live Clock</a></h3><p class="text-gray-400 text-sm">A responsive registration form and a live clock, demonstrating front-end integration of HTML, CSS, and real-time JavaScript functionality.</p></div>
+                            <div class="p-6 pt-0 flex flex-wrap gap-2 text-xs text-gray-400"><span class="bg-gray-800/50 px-2 py-1 rounded">HTML</span><span class="bg-gray-800/50 px-2 py-1 rounded">CSS</span><span class="bg-gray-800/50 px-2 py-1 rounded">JavaScript</span></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="section text-center">
+                <div class="max-w-xl mx-auto fade-in">
+                    <h2 class="text-2xl font-bold text-cyan-400 mb-2">05. What's Next?</h2>
+                    <h3 class="text-4xl md:text-5xl font-bold text-gray-100 mb-4">Get In Touch</h3>
+                    <p class="text-gray-400 mb-8">
+                        I'm currently seeking new opportunities and my inbox is always open. Whether you have a question or just want to say hi, I'll do my best to get back to you!
+                    </p>
+                    <a href="mailto:surajdalai81@gmail.com" class="inline-block border-2 border-cyan-400 text-cyan-400 font-semibold px-8 py-4 rounded-md hover:bg-cyan-400 hover:text-gray-900 transition-all text-lg">
+                        Say Hello
+                    </a>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center py-8 text-gray-500 text-sm lg:ml-20">
+            <div>Designed & Built by Suraj Dalai</div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particles.js configuration
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#ffffff" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.3, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#8892b0", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "out_mode": "out" }
+            },
+            "interactivity": {
+                "events": { "onhover": { "enable": true, "mode": "repulse" }, "onclick": { "enable": true, "mode": "push" } },
+                "modes": { "repulse": { "distance": 100 }, "push": { "particles_nb": 4 } }
+            },
+            "retina_detect": true
+        });
+
+        // Typing effect script
+        const typingText = document.getElementById('typing-text');
+        const phrases = ["I'm an aspiring Software Developer.", "I build things with Java.", "I create web applications."];
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let currentPhrase = "";
+        let isDeleting = false;
+
+        function type() {
+            const fullPhrase = phrases[phraseIndex];
+            if (isDeleting) {
+                currentPhrase = fullPhrase.substring(0, currentPhrase.length - 1);
+            } else {
+                currentPhrase = fullPhrase.substring(0, currentPhrase.length + 1);
+            }
+            typingText.innerHTML = currentPhrase;
+
+            let typeSpeed = 150;
+            if (isDeleting) { typeSpeed /= 2; }
+
+            if (!isDeleting && currentPhrase === fullPhrase) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && currentPhrase === "") {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+            setTimeout(type, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', type);
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // Mobile Menu
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        const menuIcon = document.getElementById('menu-icon');
+        
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            document.body.classList.toggle('overflow-hidden');
+            
+            const isMenuOpen = mobileMenu.classList.contains('flex');
+            menuIcon.className = isMenuOpen ? 'fas fa-times' : 'fas fa-bars';
+        }
+
+        mobileMenuButton.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', toggleMenu);
+        });
+    </script>
+</body>
+</html>
